@@ -1,22 +1,9 @@
-package com.example.temilola.flixster;
-
-import android.content.Context;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
+//package com.example.temilola.flixster;
 
 /**
  * Created by temilola on 6/15/16.
  */
-public class MoviesAdapter extends ArrayAdapter<Movies> {
+/*public class MoviesAdapter extends ArrayAdapter<Movies> {
 
     public MoviesAdapter(Context context, ArrayList<Movies> movie) {
         super(context, R.layout.item_movie, movie);
@@ -44,6 +31,6 @@ public class MoviesAdapter extends ArrayAdapter<Movies> {
             return convertView;
         }
 }
-
+*/
 
 
