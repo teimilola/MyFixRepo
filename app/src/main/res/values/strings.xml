@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Flixster</string>
+    <string name="release">Release Date:- </string>
+    <string name="popularity">Ratings:- </string>
+    <string name="votecount">Vote Count:- </string>
+    <string name="voteavg">Vote Average:- </string>
 </resources>

@@ -1,8 +1,12 @@
 package com.example.temilola.flixster;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.temilola.flixster.adapters.MovieArrayAdapter;
@@ -18,6 +22,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
+
 public class MoviesActivity extends AppCompatActivity {
 
     ArrayList<Movie> movies;
@@ -28,15 +33,20 @@ public class MoviesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
-        lvItems= (ListView)findViewById(R.id.lvMovies);
+        //display custom action bar
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_title);
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+
+        lvItems = (ListView) findViewById(R.id.lvMovies);
         movies = new ArrayList<>();
-        movieAdapter= new MovieArrayAdapter(this, movies);
+        movieAdapter = new MovieArrayAdapter(this, movies);
         lvItems.setAdapter(movieAdapter);
 
-        String url= "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
-        AsyncHttpClient client= new AsyncHttpClient();
+        String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
+        AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get(url, new JsonHttpResponseHandler(){
+        client.get(url, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 JSONArray movieJSONResults = null;
@@ -56,18 +66,27 @@ public class MoviesActivity extends AppCompatActivity {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
-        /*//get the actual movie
-        ArrayList<Movies> movies = Movies.getFakeMovies();
-        //get the listview that we want to populate
-        ListView lvMovies = (ListView) findViewById(R.id.lvMovies);
-        //create an array adapter
-        //ArrayAdapter<Movies> adapter = new ArrayAdapter<Movies>(this, android.R.layout.simple_list_item_1, movies);
-        MoviesAdapter adapter= new MoviesAdapter(this, movies);
-        //associate the adapter with the listview
-        if (lvMovies != null) {
-            lvMovies.setAdapter(adapter);
-        }*/
+
+        setupOnItemClick();
     }
+
+        private void setupOnItemClick() {
+            lvItems.setOnItemClickListener(
+                    new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> MovieArrayAdapter, View view, int position, long id) {
+                        Movie movie= movies.get(position);
+                        Intent i = new Intent(MoviesActivity.this, DetailsActivity.class);
+
+                        i.putExtra("Movie", movie);
+                        startActivity(i);
+                    }
+                    });
+        }
+
+
+
+
 }
 
 

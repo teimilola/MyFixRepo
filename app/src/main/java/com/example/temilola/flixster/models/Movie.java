@@ -4,12 +4,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by temilola on 6/15/16.
  */
-public class Movie {
+public class Movie implements Serializable {
     public String getPosterPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
     }
@@ -22,14 +23,35 @@ public class Movie {
         return overview;
     }
 
+    public String getBackdropPath() {
+        if(backdropPath != "null") {
+            return String.format("https://image.tmdb.org/t/p/w342/%s", backdropPath);
+        }
+        return null;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public Double getPopularity() {
+        return popularity;
+    }
+
+    double popularity;
+    String releaseDate;
     String posterPath;
     String originalTitle;
     String overview;
+    String backdropPath;
 
     public Movie(JSONObject jsonObject) throws JSONException{
         this.posterPath= jsonObject.getString("poster_path");
         this.originalTitle= jsonObject.getString("original_title");
         this.overview= jsonObject.getString("overview");
+        this.backdropPath=jsonObject.getString("backdrop_path");
+        this.popularity= jsonObject.getDouble("popularity");
+        this.releaseDate= jsonObject.getString("release_date");
     }
 
     public static ArrayList<Movie> fromJSONArray(JSONArray array){
