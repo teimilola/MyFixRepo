@@ -15,6 +15,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
@@ -22,10 +24,10 @@ import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
  */
 public class MovieArrayAdapter extends ArrayAdapter<Movie> {
     //view lookup cache
-    private static class ViewHolder{
-        TextView Title;
-        TextView Overview;
-        ImageView Image;
+    static class ViewHolder{
+        @BindView(R.id.tvTitle) TextView Title;
+        @BindView(R.id.tvOverview) TextView Overview;
+        @BindView(R.id.ivMovieImage)ImageView Image;
     }
 
     public MovieArrayAdapter(Context context, List<Movie> movies){
@@ -50,6 +52,7 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
             //clear out image from last time
             viewHolder.Image.setImageResource(0);
             convertView.setTag(viewHolder);
+            ButterKnife.bind(this, convertView);
         }else{
             viewHolder= (ViewHolder)convertView.getTag();
         }
@@ -61,11 +64,11 @@ public class MovieArrayAdapter extends ArrayAdapter<Movie> {
 
         //check if in landscape or portrait
         if(convertView.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Picasso.with(getContext()).load(movie.getPosterPath()).fit().centerCrop().placeholder(R.mipmap.flixster_icon).error(R.mipmap.flixster_icon).transform(new RoundedCornersTransformation(10, 10)).into(viewHolder.Image);
+            Picasso.with(getContext()).load(movie.getPosterPath()).fit().centerCrop().placeholder(R.mipmap.flixster_icon).error(R.mipmap.flixster_icon).transform(new RoundedCornersTransformation(20, 20)).into(viewHolder.Image);
         }
         else {
             if (movie.getBackdropPath() != null) {
-                Picasso.with(getContext()).load(movie.getBackdropPath()).resize(0, 200).placeholder(R.mipmap.flixster_icon).error(R.mipmap.flixster_icon).transform(new RoundedCornersTransformation(10, 10)).into(viewHolder.Image);
+                Picasso.with(getContext()).load(movie.getBackdropPath()).resize(0, 200).placeholder(R.mipmap.flixster_icon).error(R.mipmap.flixster_icon).transform(new RoundedCornersTransformation(20, 20)).into(viewHolder.Image);
             }
         }
         //return the view

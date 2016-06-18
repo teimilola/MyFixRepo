@@ -38,20 +38,33 @@ public class Movie implements Serializable {
         return popularity;
     }
 
+    public int getVoteCount() {
+        return voteCount;
+    }
+
+    public double getVoteAvg() {
+        return voteAvg;
+    }
+
     double popularity;
+    int voteCount;
+    double voteAvg;
     String releaseDate;
     String posterPath;
     String originalTitle;
     String overview;
     String backdropPath;
 
+
     public Movie(JSONObject jsonObject) throws JSONException{
         this.posterPath= jsonObject.getString("poster_path");
-        this.originalTitle= jsonObject.getString("original_title");
+        this.originalTitle= jsonObject.getString("title");
         this.overview= jsonObject.getString("overview");
         this.backdropPath=jsonObject.getString("backdrop_path");
         this.popularity= jsonObject.getDouble("popularity");
         this.releaseDate= jsonObject.getString("release_date");
+        this.voteCount= jsonObject.getInt("vote_count");
+        this.voteAvg= jsonObject.getDouble("vote_average");
     }
 
     public static ArrayList<Movie> fromJSONArray(JSONArray array){
