@@ -31,12 +31,13 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://http://imgur.com/3wjYVlS' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://imgur.com/3wjYVlS' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
+It was slightly difficult to work on the xml layout files to get all the views to fit into the screen. I ended up using a scroll view.
 
 
 ## Open-source libraries used
